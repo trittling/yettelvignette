@@ -15,8 +15,7 @@ struct VignetteTypeSelectorView: View {
         NavigationStack {
             ZStack {
                 Color.init(hex: Colors.backgroundColor.rawValue)
-                    .ignoresSafeArea() // Makes sure the color fills the entire screen, including safe areas
-
+                    .ignoresSafeArea()
                 VStack {
                     CarView(plateNumber: "ABC 124", name: "Michael Scott")
                     

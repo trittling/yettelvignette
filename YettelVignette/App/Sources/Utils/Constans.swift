@@ -11,6 +11,13 @@ enum Constans {
         case typeSelectorTitle = "Országos matricák"
         case buy = "Vásárlás"
         case annualTitle = "Éves vármegyei matricák"
+        case amountToBePaid = "Fizetendő összeg"
+        case summaryTitle = "Vásárlás megerősítése"
+        case plateNumber = "Rendszám"
+        case vignetteType = "Matrica típusa"
+        case usageFee = "Rendszerhasználati díj"
+        case next = "Tovább"
+        case cancel = "Mégsem"
     }
     
     enum Images: String {
@@ -18,6 +25,8 @@ enum Constans {
         case radioButtonOff = "RadioButton.off"
         case radioButtonOn = "RadioButton.on"
         case arrow = "Arrow"
+        case checkboxOff = "Checkbox.off"
+        case checkboxOn = "Checkbox.on"
     }
     
     enum Map: String {
