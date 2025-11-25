@@ -18,6 +18,7 @@ enum Constans {
         case usageFee = "Rendszerhasználati díj"
         case next = "Tovább"
         case cancel = "Mégsem"
+        case successTitle = "A matricákat \nsikeresen \nkifizetted!"
     }
     
     enum Images: String {
@@ -27,6 +28,7 @@ enum Constans {
         case arrow = "Arrow"
         case checkboxOff = "Checkbox.off"
         case checkboxOn = "Checkbox.on"
+        case yettelMan = "Yettelman"
     }
     
     enum Map: String {

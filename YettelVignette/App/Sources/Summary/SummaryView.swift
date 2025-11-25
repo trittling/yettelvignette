@@ -96,7 +96,7 @@ struct SummaryView: View {
                     AmountView()
                     
                     Button(Constans.Texts.next.rawValue, action: {
-                        
+                        navigate = true
                     })
                     .buttonStyle(PrimaryButtonStyle())
                     .padding(.horizontal, 16)
@@ -119,7 +119,7 @@ struct SummaryView: View {
                 .toolbarBackground(.visible, for: .navigationBar)
             }
             .navigationDestination(isPresented: $navigate) {
-                AnnualSelectorView()
+                SuccessView()
             }
         }
     }
