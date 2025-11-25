@@ -31,6 +31,12 @@ enum Constans {
         case yettelMan = "Yettelman"
     }
     
+    enum Navigation: String {
+        case annualSelector = "AnnualSelectorView"
+        case summary = "SummaryView"
+        case success = "SuccessView"
+    }
+    
     enum Map: String {
         case map = """
         <svg width="313" height="188" viewBox="0 0 313 188" fill="none" xmlns="http://www.w3.org/2000/svg">

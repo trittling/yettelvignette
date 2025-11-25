@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct SummaryView: View {
-    @Environment(\.dismiss) private var dismiss
-    @State private var navigate = false
+    @Binding var path: NavigationPath
 
     var body: some View {
-        NavigationStack {
             ZStack {
                 Color.init(hex: Colors.backgroundColor.rawValue)
                     .ignoresSafeArea()
@@ -96,14 +94,14 @@ struct SummaryView: View {
                     AmountView()
                     
                     Button(Constans.Texts.next.rawValue, action: {
-                        navigate = true
+                        path.append(Constans.Navigation.success.rawValue)
                     })
                     .buttonStyle(PrimaryButtonStyle())
                     .padding(.horizontal, 16)
                     .padding(.top, 16)
                     
                     Button(Constans.Texts.cancel.rawValue, action: {
-                        
+                        path.removeLast()
                     })
                     .buttonStyle(SecondaryButtonStyle())
                     .padding(.horizontal, 16)
@@ -118,13 +116,9 @@ struct SummaryView: View {
                 .toolbarBackground(Color.init(hex: Colors.green.rawValue), for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
             }
-            .navigationDestination(isPresented: $navigate) {
-                SuccessView()
-            }
-        }
     }
 }
 
 #Preview {
-    SummaryView()
+    SummaryView(path: .constant(NavigationPath()))
 }

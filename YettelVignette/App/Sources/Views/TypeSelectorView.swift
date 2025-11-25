@@ -10,6 +10,12 @@ import SwiftUI
 struct TypeSelectorView: View {
     @State private var selectedTitle: String? = nil
     
+    let onSelect: () -> Void
+    
+    init(onSelect: @escaping () -> Void) {
+        self.onSelect = onSelect
+    }
+    
     var body: some View {
         VStack {
             HStack {
@@ -37,7 +43,7 @@ struct TypeSelectorView: View {
             .padding(.horizontal, 16)
             
             Button(Constans.Texts.buy.rawValue, action: {
-                
+                onSelect()
             })
             .buttonStyle(PrimaryButtonStyle())
             .padding(.horizontal, 16)
@@ -52,5 +58,5 @@ struct TypeSelectorView: View {
 }
 
 #Preview {
-    TypeSelectorView()
+    TypeSelectorView(onSelect: {})
 }

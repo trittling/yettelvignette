@@ -9,22 +9,24 @@ import SwiftUI
 
 struct VignetteTypeSelectorView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var navigate = false
+    @State private var path = NavigationPath()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ZStack {
                 Color.init(hex: Colors.backgroundColor.rawValue)
                     .ignoresSafeArea()
                 VStack {
                     CarView(plateNumber: "ABC 124", name: "Michael Scott")
                     
-                    TypeSelectorView()
+                    TypeSelectorView() {
+                        path.append(Constans.Navigation.summary.rawValue)
+                    }
                     
                     AnnualView()
                         .padding(.top, 16)
                         .onTapGesture {
-                            navigate = true
+                            path.append(Constans.Navigation.annualSelector.rawValue)
                         }
                     
                     Spacer()
@@ -45,8 +47,14 @@ struct VignetteTypeSelectorView: View {
                     }
                 }
             }
-            .navigationDestination(isPresented: $navigate) {
-                AnnualSelectorView()
+            .navigationDestination(for: String.self) { value in
+                if value == Constans.Navigation.annualSelector.rawValue {
+                    AnnualSelectorView(path: $path)
+                } else if value == Constans.Navigation.summary.rawValue {
+                    SummaryView(path: $path)
+                } else if value == Constans.Navigation.success.rawValue {
+                    SuccessView(path: $path)
+                }
             }
         }
     }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SuccessView: View {
     @State private var showConfetti = false
+    @Binding var path: NavigationPath
     
     var body: some View {
         ZStack {
@@ -44,6 +45,7 @@ struct SuccessView: View {
                 Spacer()
                 
                 Button(Constans.Texts.next.rawValue, action: {
+                    path = NavigationPath()
                 })
                 .buttonStyle(PrimaryButtonStyle())
                 .padding(.horizontal, 16)
@@ -60,5 +62,5 @@ struct SuccessView: View {
 }
 
 #Preview {
-    SuccessView()
+    SuccessView(path: .constant(NavigationPath()))
 }
