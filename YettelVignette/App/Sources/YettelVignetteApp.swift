@@ -11,7 +11,7 @@ import SwiftUI
 struct YettelVignetteApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            VignetteTypeSelectorView()
         }
     }
 }

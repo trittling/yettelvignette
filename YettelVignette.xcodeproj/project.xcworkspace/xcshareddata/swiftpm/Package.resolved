@@ -1,0 +1,33 @@
+{
+  "originHash" : "488f1fc65aced0a207edb53606fbdfbb82b60bcc3b0a1c0687b09734ab38bf12",
+  "pins" : [
+    {
+      "identity" : "stinsen",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rundfunk47/stinsen.git",
+      "state" : {
+        "revision" : "91ddedb7d86c7d3aa2d0dd281f1113ebae256324",
+        "version" : "2.0.13"
+      }
+    },
+    {
+      "identity" : "swift-http-types",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-http-types",
+      "state" : {
+        "revision" : "45eb0224913ea070ec4fba17291b9e7ecf4749ca",
+        "version" : "1.5.1"
+      }
+    },
+    {
+      "identity" : "swift-openapi-runtime",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-openapi-runtime",
+      "state" : {
+        "revision" : "7722cf8eac05c1f1b5b05895b04cfcc29576d9be",
+        "version" : "1.8.3"
+      }
+    }
+  ],
+  "version" : 3
+}
