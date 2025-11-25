@@ -25,25 +25,28 @@ struct CheckboxView: View {
             HStack(spacing: 12) {
                 Image(isSelected ?
                       Constans.Images.checkboxOn.rawValue :
-                      Constans.Images.checkboxOff.rawValue)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 24, height: 24)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 4)
-                    .padding(.vertical, 4)
+                        Constans.Images.checkboxOff.rawValue)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 24, height: 24)
+                .padding(.leading, 16)
+                .padding(.trailing, 4)
+                .padding(.vertical, 4)
                 
-                    Text(title)
-                    .font(.system(size: 16))
+                Text(title)
+                    .font(.system(size: 16, weight: .light))
+                    
+                    .foregroundColor(isSelected ?
+                                     Color(hex: Colors.checkboxOn.rawValue) :
+                                     Color(hex: Colors.primaryTextColor.rawValue)
+                    )
+                
+                Spacer()
+                
+                Text(price)
+                    .font(.system(size: 16, weight: .bold))
                     .foregroundColor(Color(hex: Colors.primaryTextColor.rawValue))
-                    
-                    Spacer()
-                    
-                    Text(price)
-                        .font(.subheadline)
-                        .foregroundColor(Color(hex: Colors.primaryTextColor.rawValue))
-                        .fontWeight(.bold)
-                        .padding(.trailing, 24)
+                    .padding(.trailing, 24)
             }
         }
         .onTapGesture {

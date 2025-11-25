@@ -10,7 +10,6 @@ import SwiftUI
 struct TypeSelectorView: View {
     @State private var selectedTitle: String? = nil
     
-    
     var body: some View {
         VStack {
             HStack {

@@ -12,6 +12,7 @@ enum Colors: String {
     case green = "#B4FF00"
     case backgroundColor = "#F2F4F5"
     case radioButtonOff = "#E5E9EC"
+    case checkboxOn = "#80919F"
 }
 
 extension Color {

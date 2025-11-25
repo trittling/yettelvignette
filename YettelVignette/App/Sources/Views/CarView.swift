@@ -27,11 +27,12 @@ struct CarView: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(plateNumber)
-                    .font(.headline)
+                    .font(.system(size: 16, weight: .regular))
+                    .foregroundStyle(Color(hex: Colors.primaryTextColor.rawValue))
                     .padding(.top, 16)
                 Text(name)
-                    .font(.subheadline)
-                    .foregroundColor(.primary)
+                    .font(.system(size: 12, weight: .light))
+                    .foregroundStyle(Color(hex: Colors.primaryTextColor.rawValue))
                     .padding(.bottom, 16)
             }
             Spacer()

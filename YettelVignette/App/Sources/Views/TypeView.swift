@@ -29,30 +29,30 @@ struct TypeView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 28, height: 28)
-                    .padding(.leading, 24)
+                    .padding(.leading, 16)
                     .padding(.trailing, 4)
                     .padding(.vertical, 24)
                 
                     Text(title)
-                        .font(.headline)
+                    .font(.system(size: 16, weight: .regular))
+                    .foregroundStyle(Color(hex: Colors.primaryTextColor.rawValue))
                     
                     Spacer()
                     
                     Text(price)
-                        .font(.subheadline)
-                        .foregroundColor(.primary)
-                        .fontWeight(.bold)
-                        .padding(.trailing, 24)
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundStyle(Color(hex: Colors.primaryTextColor.rawValue))
+                    .padding(.trailing, 24)
             }
         }
         .background(
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color.white)
                 .overlay(
-                       RoundedRectangle(cornerRadius: 8)
+                    RoundedRectangle(cornerRadius: 8)
                         .stroke(isSelected ? Color(hex: Colors.primaryTextColor.rawValue) :
-                                Color(hex: Colors.radioButtonOff.rawValue), lineWidth: 2)
-                   )
+                                    Color(hex: Colors.radioButtonOff.rawValue), lineWidth: 2)
+                )
         )
         .onTapGesture {
             onSelect()

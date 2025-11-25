@@ -44,7 +44,6 @@ struct SuccessView: View {
                 Spacer()
                 
                 Button(Constans.Texts.next.rawValue, action: {
-                    path.removeAll()
                 })
                 .buttonStyle(PrimaryButtonStyle())
                 .padding(.horizontal, 16)
