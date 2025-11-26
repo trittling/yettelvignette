@@ -19,7 +19,7 @@ struct VignetteTypeSelectorView: View {
                 Color.init(hex: Colors.backgroundColor.rawValue)
                     .ignoresSafeArea()
                 VStack {
-                    CarView(plateNumber: "ABC 124", name: "Michael Scott")
+                    CarView(plateNumber: viewModel.plateNumber.uppercased(), name: viewModel.name)
                     
                     TypeSelectorView(
                         selectedTitle: Binding<String?>(
@@ -56,6 +56,9 @@ struct VignetteTypeSelectorView: View {
                         }
                     }
                 }
+            }
+            .task {
+                await viewModel.getVehicleInfo()
             }
             .navigationDestination(for: String.self) { value in
                 if value == Constans.Navigation.annualSelector.rawValue {

@@ -1,0 +1,13 @@
+{
+    "requestId": 86205288,
+    "statusCode": "OK",
+    "internationalRegistrationCode": "H",
+    "type": "CAR",
+    "name": "Michael Scott",
+    "plate": "abc-123",
+    "country": {
+        "hu": "MagyarorszĂĄg",
+        "en": "Hungary"
+    },
+    "vignetteType": "D1"
+}

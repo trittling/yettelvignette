@@ -9,6 +9,11 @@ import SwiftUI
 
 @main
 struct YettelVignetteApp: App {
+    
+    init () {
+        AppContainer.shared.setMockContainer()
+    }
+    
     var body: some Scene {
         WindowGroup {
             VignetteTypeSelectorView()

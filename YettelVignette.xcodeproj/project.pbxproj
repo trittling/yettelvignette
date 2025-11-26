@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BD045E302ED4508A00E889C2 /* OpenAPIRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = BD045E2F2ED4508A00E889C2 /* OpenAPIRuntime */; };
-		BD045E382ED451E100E889C2 /* Stinsen in Frameworks */ = {isa = PBXBuildFile; productRef = BD045E372ED451E100E889C2 /* Stinsen */; };
+		BDD919052ED6EE2100739626 /* OpenAPIURLSession in Frameworks */ = {isa = PBXBuildFile; productRef = BDD919042ED6EE2100739626 /* OpenAPIURLSession */; };
+		BDD919082ED6EE2A00739626 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = BDD919072ED6EE2A00739626 /* Swinject */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +29,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDD919052ED6EE2100739626 /* OpenAPIURLSession in Frameworks */,
 				BD045E302ED4508A00E889C2 /* OpenAPIRuntime in Frameworks */,
-				BD045E382ED451E100E889C2 /* Stinsen in Frameworks */,
+				BDD919082ED6EE2A00739626 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +68,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				BDD919182ED6F2D900739626 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				BD045E1F2ED44DEF00E889C2 /* YettelVignette */,
@@ -73,7 +76,8 @@
 			name = YettelVignette;
 			packageProductDependencies = (
 				BD045E2F2ED4508A00E889C2 /* OpenAPIRuntime */,
-				BD045E372ED451E100E889C2 /* Stinsen */,
+				BDD919042ED6EE2100739626 /* OpenAPIURLSession */,
+				BDD919072ED6EE2A00739626 /* Swinject */,
 			);
 			productName = YettelVignette;
 			productReference = BD045E1D2ED44DEF00E889C2 /* YettelVignette.app */;
@@ -105,7 +109,9 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				BD045E2E2ED4508A00E889C2 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */,
-				BD045E362ED451E100E889C2 /* XCRemoteSwiftPackageReference "stinsen" */,
+				BDD919032ED6EE2100739626 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */,
+				BDD919062ED6EE2A00739626 /* XCRemoteSwiftPackageReference "Swinject" */,
+				BDD919142ED6F2A400739626 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BD045E1E2ED44DEF00E889C2 /* Products */;
@@ -136,6 +142,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BDD919182ED6F2D900739626 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = BDD919172ED6F2D900739626 /* OpenAPIGenerator */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		BD045E262ED44DF100E889C2 /* Debug */ = {
@@ -368,12 +381,28 @@
 				minimumVersion = 1.8.3;
 			};
 		};
-		BD045E362ED451E100E889C2 /* XCRemoteSwiftPackageReference "stinsen" */ = {
+		BDD919032ED6EE2100739626 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rundfunk47/stinsen.git";
+			repositoryURL = "https://github.com/apple/swift-openapi-urlsession.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.13;
+				minimumVersion = 1.2.0;
+			};
+		};
+		BDD919062ED6EE2A00739626 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.10.0;
+			};
+		};
+		BDD919142ED6F2A400739626 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-openapi-generator.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.10.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -384,10 +413,20 @@
 			package = BD045E2E2ED4508A00E889C2 /* XCRemoteSwiftPackageReference "swift-openapi-runtime" */;
 			productName = OpenAPIRuntime;
 		};
-		BD045E372ED451E100E889C2 /* Stinsen */ = {
+		BDD919042ED6EE2100739626 /* OpenAPIURLSession */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BD045E362ED451E100E889C2 /* XCRemoteSwiftPackageReference "stinsen" */;
-			productName = Stinsen;
+			package = BDD919032ED6EE2100739626 /* XCRemoteSwiftPackageReference "swift-openapi-urlsession" */;
+			productName = OpenAPIURLSession;
+		};
+		BDD919072ED6EE2A00739626 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDD919062ED6EE2A00739626 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		BDD919172ED6F2D900739626 /* OpenAPIGenerator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDD919142ED6F2A400739626 /* XCRemoteSwiftPackageReference "swift-openapi-generator" */;
+			productName = "plugin:OpenAPIGenerator";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
