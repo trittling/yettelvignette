@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct TypeSelectorView: View {
-    @State private var selectedTitle: String? = nil
+    @Binding private var selectedTitle: String?
     
     let onSelect: () -> Void
     
-    init(onSelect: @escaping () -> Void) {
+    init(selectedTitle: Binding<String?>, onSelect: @escaping () -> Void) {
         self.onSelect = onSelect
+        self._selectedTitle = selectedTitle
     }
     
     var body: some View {
@@ -55,8 +56,4 @@ struct TypeSelectorView: View {
                 .fill(Color.white)
         )
     }
-}
-
-#Preview {
-    TypeSelectorView(onSelect: {})
 }

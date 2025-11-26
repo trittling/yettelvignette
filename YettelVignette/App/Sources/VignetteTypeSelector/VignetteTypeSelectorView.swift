@@ -10,6 +10,8 @@ import SwiftUI
 struct VignetteTypeSelectorView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var path = NavigationPath()
+    
+    @StateObject private var viewModel = VignetteTypeSelectorViewModel()
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -19,9 +21,17 @@ struct VignetteTypeSelectorView: View {
                 VStack {
                     CarView(plateNumber: "ABC 124", name: "Michael Scott")
                     
-                    TypeSelectorView() {
-                        path.append(Constans.Navigation.summary.rawValue)
-                    }
+                    TypeSelectorView(
+                        selectedTitle: Binding<String?>(
+                            get: { viewModel.selectedTitle.isEmpty ? nil : viewModel.selectedTitle },
+                            set: { viewModel.selectedTitle = $0 ?? "" }
+                        ),
+                        onSelect: {
+                            if !viewModel.selectedTitle.isEmpty {
+                                path.append(Constans.Navigation.summary.rawValue)
+                            }
+                        }
+                    )
                     
                     AnnualView()
                         .padding(.top, 16)
