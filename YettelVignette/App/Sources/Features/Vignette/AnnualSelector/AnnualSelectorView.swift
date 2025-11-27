@@ -51,12 +51,14 @@ struct AnnualSelectorView: View {
             AmountView(price: viewModel.sumPrice)
             
             Button(Constans.Texts.next.rawValue, action: {
-                if !viewModel.selectedCounties.isEmpty && viewModel.checkSelectedCounties() {
-                    path.append(NavigationDestination.summary(counties: viewModel.selectedCounties,
-                                                              price: viewModel.price,
-                                                              sumPrice: viewModel.sumPrice))
-                } else {
-                    isAlertPresented.toggle()
+                if !viewModel.selectedCounties.isEmpty {
+                    if viewModel.checkSelectedCounties() {
+                        path.append(NavigationDestination.summary(counties: viewModel.selectedCounties,
+                                                                  price: viewModel.price,
+                                                                  sumPrice: viewModel.sumPrice))
+                    } else {
+                        isAlertPresented.toggle()
+                    }
                 }
             })
             .buttonStyle(PrimaryButtonStyle())
