@@ -70,11 +70,15 @@ private extension VignetteInteractor {
             highwayVignettes.append(highwayVignette)
         }
         
-        
+        var counties = [County]()
+        for county in apiModel.payload?.counties ?? [] {
+            counties.append(County(id: county.id ?? "",
+                                   name: county.name ?? ""))
+        }
         
         return HighwayInfo(highwayVignettes: highwayVignettes,
                            vehicleCategories: apiModel.payload?.vehicleCategories as? [VehicleCategory] ?? [],
-                           counties: apiModel.payload?.counties as? [County] ?? [],
+                           counties: counties,
                            requestId: apiModel.requestId ?? "",
                            statusCode: apiModel.statusCode ?? "",
                            dataType: apiModel.payload.debugDescription)

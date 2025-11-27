@@ -13,10 +13,14 @@ final class VignetteTypeSelectorViewModel: ObservableObject {
     @Published var selectedTitle: String = ""
     @Published var name: String = ""
     @Published var plateNumber: String = ""
+    @Published var highwayVignettes: [HighwayVignette] = []
+    
+    var counties = [County]()
+    var annualFee: Int = 0
     
    @Injected private var vignetteInteractor: VignetteInteractorType
     
-    func getVehicleInfo() async {
+    func getData() async {
         let citiesResult = await vignetteInteractor.getVehicleInfo()
         if let successResult = citiesResult.successResult {
             name = successResult.name
@@ -26,7 +30,15 @@ final class VignetteTypeSelectorViewModel: ObservableObject {
         
         let highwayResult = await vignetteInteractor.getHighwayInfo()
         if let successResult = highwayResult.successResult {
-            print(successResult.requestId)
+            highwayVignettes = successResult.highwayVignettes
+            counties = successResult.counties
+            
+            for type in successResult.highwayVignettes {
+                if type.vignetteType.count > 1 && ((type.vignetteType.first?.starts(with: "YEAR_")) != nil) {
+                    annualFee = type.sum
+                }
+            }
+            
         }
     }
 }

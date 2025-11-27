@@ -25,7 +25,7 @@ struct HighwayInfo: Codable {
     }
 }
 
-struct HighwayVignette: Codable {
+struct HighwayVignette: Codable, Hashable {
     let vignetteType: [String]
     let vehicleCategory: String
     let cost: Int
@@ -44,7 +44,7 @@ struct VehicleName: Codable {
     let en: String
 }
 
-struct County: Codable {
+struct County: Codable, Hashable {
     let id: String
     let name: String
 }

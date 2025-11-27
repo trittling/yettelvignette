@@ -9,6 +9,15 @@ import SwiftUI
 
 struct AnnualSelectorView: View {
     @Binding var path: NavigationPath
+    @State private var isAlertPresented: Bool = false
+
+    @StateObject private var viewModel: AnnualSelectorViewModel
+    
+    init(path: Binding<NavigationPath>, counties: [County], price: Int) {
+        _path = path
+        _viewModel = StateObject(wrappedValue: AnnualSelectorViewModel(counties: counties,
+                                                                       price: price))
+    }
     
     var body: some View {
         VStack {
@@ -28,58 +37,43 @@ struct AnnualSelectorView: View {
                 .aspectRatio(contentMode: .fit)
             
             ScrollView {
-                CheckboxView(title: "Bács-Kiskun", price: "5 450 Ft", onSelect: {
-                    print("selected")
-                })
-                CheckboxView(title: "Bács-Kiskun", price: "5 450 Ft", onSelect: {
-                    print("selected")
-                })
-                CheckboxView(title: "Bács-Kiskun", price: "5 450 Ft", onSelect: {
-                    print("selected")
-                })
-                CheckboxView(title: "Bács-Kiskun", price: "5 450 Ft", onSelect: {
-                    print("selected")
-                })
-                CheckboxView(title: "Bács-Kiskun", price: "5 450 Ft", onSelect: {
-                    print("selected")
-                })
-                CheckboxView(title: "Bács-Kiskun", price: "5 450 Ft", onSelect: {
-                    print("selected")
-                })
-                CheckboxView(title: "Bács-Kiskun", price: "5 450 Ft", onSelect: {
-                    print("selected")
-                })
-                CheckboxView(title: "Bács-Kiskun", price: "5 450 Ft", onSelect: {
-                    print("selected")
-                })
-                CheckboxView(title: "Bács-Kiskun", price: "5 450 Ft", onSelect: {
-                    print("selected")
-                })
-                CheckboxView(title: "Bács-Kiskun", price: "5 450 Ft", onSelect: {
-                    print("selected")
-                })
-                CheckboxView(title: "Bács-Kiskun", price: "5 450 Ft", onSelect: {
-                    print("selected")
-                })
-                CheckboxView(title: "Bács-Kiskun", price: "5 450 Ft", onSelect: {
-                    print("selected")
-                })
+                ForEach(viewModel.counties, id: \.self) { county in
+                    CheckboxView(title: county.name, price: viewModel.price.formatToHuf(), onSelect: {
+                        viewModel.selectVignette(county: county)
+                    })
+                }
             }
             
             Divider()
                 .padding(.top, 8)
                 .padding(.horizontal, 16)
             
-            AmountView()
+            AmountView(price: viewModel.sumPrice)
             
             Button(Constans.Texts.next.rawValue, action: {
-                path.append(Constans.Navigation.summary.rawValue)
+                if !viewModel.selectedCounties.isEmpty && viewModel.checkSelectedCounties() {
+                    path.append(NavigationDestination.summary(counties: viewModel.selectedCounties,
+                                                              price: viewModel.price,
+                                                              sumPrice: viewModel.sumPrice))
+                } else {
+                    isAlertPresented.toggle()
+                }
             })
             .buttonStyle(PrimaryButtonStyle())
             .padding(.horizontal, 16)
             .padding(.vertical, 16)
             
             Spacer()
+        }
+        .alert(Constans.Texts.countyWarningTitle.rawValue, isPresented: $isAlertPresented) {
+            Button(Constans.Texts.cancel.rawValue, role: .cancel) { }
+            Button(Constans.Texts.ok.rawValue) {
+                path.append(NavigationDestination.summary(counties: viewModel.selectedCounties,
+                                                          price: viewModel.price,
+                                                          sumPrice: viewModel.sumPrice))
+            }
+        } message: {
+            Text(Constans.Texts.countyWarningMessage.rawValue)
         }
         .scrollIndicators(.hidden)
         .padding(.horizontal, 16)
@@ -91,5 +85,5 @@ struct AnnualSelectorView: View {
 }
 
 #Preview {
-    AnnualSelectorView(path: .constant(NavigationPath()))
+    AnnualSelectorView(path: .constant(NavigationPath()), counties: [], price: 100)
 }

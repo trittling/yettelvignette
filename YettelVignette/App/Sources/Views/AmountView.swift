@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct AmountView: View {
+    private var price: Int = 0
+    
+    
+    init(price: Int) {
+        self.price = price
+    }
     
     var body: some View {
         HStack {
@@ -17,7 +23,7 @@ struct AmountView: View {
                     .padding(.top, 24)
                     .foregroundColor(Color(hex: Colors.primaryTextColor.rawValue))
                 
-                Text("21 800 Ft")
+                Text(price.formatToHuf())
                     .font(.system(size: 40, weight: .bold))
                     .padding(.bottom, 8)
                     .foregroundColor(Color(hex: Colors.primaryTextColor.rawValue))
@@ -30,5 +36,5 @@ struct AmountView: View {
 }
 
 #Preview {
-    AmountView()
+    AmountView(price: 100)
 }

@@ -11,9 +11,11 @@ struct TypeSelectorView: View {
     @Binding private var selectedTitle: String?
     
     let onSelect: () -> Void
+    let higwayVignettes: [HighwayVignette]
     
-    init(selectedTitle: Binding<String?>, onSelect: @escaping () -> Void) {
+    init(selectedTitle: Binding<String?>, higwayVignettes: [HighwayVignette], onSelect: @escaping () -> Void) {
         self.onSelect = onSelect
+        self.higwayVignettes = higwayVignettes
         self._selectedTitle = selectedTitle
     }
     
@@ -31,14 +33,26 @@ struct TypeSelectorView: View {
             }
             
             VStack(alignment: .leading, spacing: 16) {
-                TypeView(title: "D1 - heti (10 napos)", price: "6 400 Ft", isSelected: selectedTitle == "D1 - heti (10 napos)") {
-                    selectedTitle = "D1 - heti (10 napos)"
-                }
-                TypeView(title: "D1 - havi", price: "10 360 Ft", isSelected: selectedTitle == "D1 - havi") {
-                    selectedTitle = "D1 - havi"
-                }
-                TypeView(title: "D1 - napi (1 napos)", price: "5 150 Ft", isSelected: selectedTitle == "D1 - napi (1 napos)") {
-                    selectedTitle = "D1 - napi (1 napos)"
+                ForEach(higwayVignettes, id: \.self) { item in
+                    if let type = item.vignetteType.first {
+                        if type == "DAY" {
+                            TypeView(title: "D1 - napi (1 napos)", price: item.sum.formatToHuf(), isSelected: selectedTitle == "D1 - napi (1 napos)") {
+                                selectedTitle = "D1 - napi (1 napos)"
+                            }
+                        } else if type == "WEEK" {
+                            TypeView(title: "D1 - heti (10 napos)", price: item.sum.formatToHuf(), isSelected: selectedTitle == "D1 - heti (10 napos)") {
+                                selectedTitle = "D1 - heti (10 napos)"
+                            }
+                        } else if type == "MONTH" {
+                            TypeView(title: "D1 - havi", price: item.sum.formatToHuf(), isSelected: selectedTitle == "D1 - havi") {
+                                selectedTitle = "D1 - havi"
+                            }
+                        } else if type == "YEAR" {
+                            TypeView(title: "D1 - éves", price: item.sum.formatToHuf(), isSelected: selectedTitle == "D1 - évi") {
+                                selectedTitle = "D1 - évi"
+                            }
+                        }
+                    }
                 }
             }
             .padding(.horizontal, 16)

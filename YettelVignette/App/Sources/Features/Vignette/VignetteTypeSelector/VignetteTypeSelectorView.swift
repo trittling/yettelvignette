@@ -25,10 +25,10 @@ struct VignetteTypeSelectorView: View {
                         selectedTitle: Binding<String?>(
                             get: { viewModel.selectedTitle.isEmpty ? nil : viewModel.selectedTitle },
                             set: { viewModel.selectedTitle = $0 ?? "" }
-                        ),
+                        ), higwayVignettes: viewModel.highwayVignettes,
                         onSelect: {
                             if !viewModel.selectedTitle.isEmpty {
-                                path.append(Constans.Navigation.summary.rawValue)
+                                //path.append(Constans.Navigation.summary.rawValue)
                             }
                         }
                     )
@@ -36,7 +36,8 @@ struct VignetteTypeSelectorView: View {
                     AnnualView()
                         .padding(.top, 16)
                         .onTapGesture {
-                            path.append(Constans.Navigation.annualSelector.rawValue)
+                            path.append(NavigationDestination.annualSelector(counties: viewModel.counties,
+                                                                             price: viewModel.annualFee))
                         }
                     
                     Spacer()
@@ -58,14 +59,15 @@ struct VignetteTypeSelectorView: View {
                 }
             }
             .task {
-                await viewModel.getVehicleInfo()
+                await viewModel.getData()
             }
-            .navigationDestination(for: String.self) { value in
-                if value == Constans.Navigation.annualSelector.rawValue {
-                    AnnualSelectorView(path: $path)
-                } else if value == Constans.Navigation.summary.rawValue {
-                    SummaryView(path: $path)
-                } else if value == Constans.Navigation.success.rawValue {
+            .navigationDestination(for: NavigationDestination.self) { value in
+                switch value {
+                case .annualSelector(let counties, let price):
+                    AnnualSelectorView(path: $path, counties: counties, price: price)
+                case .summary(let selectedCounties, let price, let sumPrice):
+                    SummaryView(path: $path, counties: selectedCounties, price: price, sumPrice: sumPrice)
+                case .success:
                     SuccessView(path: $path)
                 }
             }
