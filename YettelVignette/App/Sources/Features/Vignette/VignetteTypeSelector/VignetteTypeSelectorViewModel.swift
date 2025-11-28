@@ -14,6 +14,7 @@ final class VignetteTypeSelectorViewModel: ObservableObject {
     @Published var name: String = ""
     @Published var plateNumber: String = ""
     @Published var highwayVignettes: [HighwayVignette] = []
+    @Published var vignetteOrder = VignetteOrder()
     
     var counties = [County]()
     var annualFee: Int = 0
@@ -32,10 +33,12 @@ final class VignetteTypeSelectorViewModel: ObservableObject {
         if let successResult = highwayResult.successResult {
             highwayVignettes = successResult.highwayVignettes
             counties = successResult.counties
+            vignetteOrder.highwayVignettes = successResult.highwayVignettes
             
             for type in successResult.highwayVignettes {
                 if type.vignetteType.count > 1 && ((type.vignetteType.first?.starts(with: "YEAR_")) != nil) {
                     annualFee = type.sum
+                    vignetteOrder.selectedVignettes.append(type)
                 }
             }
             

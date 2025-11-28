@@ -54,6 +54,10 @@ final class AnnualSelectorViewModel: ObservableObject {
     }
     
     func checkSelectedCounties() -> Bool {
+        if selectedCounties.count == 1 {
+            return true
+        }
+        
         var neighbors = [String]()
         for selectedCounty in selectedCounties {
             neighbors.append(contentsOf: countiesWithNeighbors[selectedCounty.name] ?? [])

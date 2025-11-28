@@ -29,7 +29,9 @@ struct VignetteTypeSelectorView: View {
                         higwayVignettes: viewModel.highwayVignettes,
                         onSelect: {
                             if viewModel.selectedVignette != nil {
-                                //path.append(Constants.Navigation.summary.rawValue)
+                                if viewModel.vignetteOrder.selectedVignettes.isEmpty {
+                                   // path.append(Constants.Navigation.summary.rawValue)
+                                }
                             }
                         }
                     )
