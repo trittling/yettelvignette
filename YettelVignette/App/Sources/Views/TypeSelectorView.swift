@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct TypeSelectorView: View {
-    @Binding private var selectedTitle: String?
+    @Binding private var selectedVignette: HighwayVignette?
     
     let onSelect: () -> Void
     let higwayVignettes: [HighwayVignette]
     
-    init(selectedTitle: Binding<String?>, higwayVignettes: [HighwayVignette], onSelect: @escaping () -> Void) {
+    init(selectedVignette: Binding<HighwayVignette?>, higwayVignettes: [HighwayVignette], onSelect: @escaping () -> Void) {
         self.onSelect = onSelect
         self.higwayVignettes = higwayVignettes
-        self._selectedTitle = selectedTitle
+        self._selectedVignette = selectedVignette
     }
     
     var body: some View {
@@ -36,20 +36,20 @@ struct TypeSelectorView: View {
                 ForEach(higwayVignettes, id: \.self) { item in
                     if let type = item.vignetteType.first {
                         if type == "DAY" {
-                            TypeView(title: "D1 - napi (1 napos)", price: item.sum.formatToHuf(), isSelected: selectedTitle == "D1 - napi (1 napos)") {
-                                selectedTitle = "D1 - napi (1 napos)"
+                            TypeView(title: "D1 - napi (1 napos)", price: item.sum.formatToHuf(), isSelected: selectedVignette == item) {
+                                selectedVignette = item
                             }
                         } else if type == "WEEK" {
-                            TypeView(title: "D1 - heti (10 napos)", price: item.sum.formatToHuf(), isSelected: selectedTitle == "D1 - heti (10 napos)") {
-                                selectedTitle = "D1 - heti (10 napos)"
+                            TypeView(title: "D1 - heti (10 napos)", price: item.sum.formatToHuf(), isSelected: selectedVignette == item) {
+                                selectedVignette = item
                             }
                         } else if type == "MONTH" {
-                            TypeView(title: "D1 - havi", price: item.sum.formatToHuf(), isSelected: selectedTitle == "D1 - havi") {
-                                selectedTitle = "D1 - havi"
+                            TypeView(title: "D1 - havi", price: item.sum.formatToHuf(), isSelected: selectedVignette == item) {
+                                selectedVignette = item
                             }
                         } else if type == "YEAR" {
-                            TypeView(title: "D1 - éves", price: item.sum.formatToHuf(), isSelected: selectedTitle == "D1 - évi") {
-                                selectedTitle = "D1 - évi"
+                            TypeView(title: "D1 - éves", price: item.sum.formatToHuf(), isSelected: selectedVignette == item) {
+                                selectedVignette = item
                             }
                         }
                     }

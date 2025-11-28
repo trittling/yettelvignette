@@ -22,13 +22,14 @@ struct VignetteTypeSelectorView: View {
                     CarView(plateNumber: viewModel.plateNumber.uppercased(), name: viewModel.name)
                     
                     TypeSelectorView(
-                        selectedTitle: Binding<String?>(
-                            get: { viewModel.selectedTitle.isEmpty ? nil : viewModel.selectedTitle },
-                            set: { viewModel.selectedTitle = $0 ?? "" }
-                        ), higwayVignettes: viewModel.highwayVignettes,
+                        selectedVignette: Binding<HighwayVignette?>(
+                            get: { viewModel.selectedVignette },
+                            set: { viewModel.selectedVignette = $0 }
+                        ),
+                        higwayVignettes: viewModel.highwayVignettes,
                         onSelect: {
-                            if !viewModel.selectedTitle.isEmpty {
-                                //path.append(Constans.Navigation.summary.rawValue)
+                            if viewModel.selectedVignette != nil {
+                                //path.append(Constants.Navigation.summary.rawValue)
                             }
                         }
                     )

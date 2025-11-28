@@ -10,7 +10,7 @@ import Combine
 
 @MainActor
 final class VignetteTypeSelectorViewModel: ObservableObject {
-    @Published var selectedTitle: String = ""
+    @Published var selectedVignette: HighwayVignette?
     @Published var name: String = ""
     @Published var plateNumber: String = ""
     @Published var highwayVignettes: [HighwayVignette] = []
