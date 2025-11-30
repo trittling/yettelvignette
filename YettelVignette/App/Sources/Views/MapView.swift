@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct MapView: View {
+    @Binding var selectedCounties: [County]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Image("Map")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            
+            ForEach(selectedCounties, id: \.self) { county in
+                Image(county.id)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
+        }
     }
-}
-
-#Preview {
-    MapView()
 }

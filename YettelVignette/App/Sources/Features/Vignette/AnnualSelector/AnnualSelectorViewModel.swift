@@ -12,9 +12,9 @@ import Combine
 final class AnnualSelectorViewModel: ObservableObject {
     @Published var counties = [County]()
     @Published var sumPrice = 0
+    @Published var selectedCounties = [County]()
     
     var price: Int
-    var selectedCounties = [County]()
     var order: VignetteOrder
     
     let countiesWithNeighbors: [String: [String]] = [

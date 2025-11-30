@@ -31,9 +31,7 @@ struct AnnualSelectorView: View {
                 Spacer()
             }
             
-            Image("Map")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+            MapView(selectedCounties: $viewModel.selectedCounties)
             
             ScrollView {
                 ForEach(viewModel.counties, id: \.self) { county in
