@@ -13,10 +13,9 @@ struct AnnualSelectorView: View {
 
     @StateObject private var viewModel: AnnualSelectorViewModel
     
-    init(path: Binding<NavigationPath>, counties: [County], price: Int) {
+    init(path: Binding<NavigationPath>, order: VignetteOrder) {
         _path = path
-        _viewModel = StateObject(wrappedValue: AnnualSelectorViewModel(counties: counties,
-                                                                       price: price))
+        _viewModel = StateObject(wrappedValue: AnnualSelectorViewModel(order: order))
     }
     
     var body: some View {
@@ -53,9 +52,7 @@ struct AnnualSelectorView: View {
             Button(Constans.Texts.next.rawValue, action: {
                 if !viewModel.selectedCounties.isEmpty {
                     if viewModel.checkSelectedCounties() {
-                        path.append(NavigationDestination.summary(counties: viewModel.selectedCounties,
-                                                                  price: viewModel.price,
-                                                                  sumPrice: viewModel.sumPrice))
+                        path.append(NavigationDestination.summary(order: viewModel.order))
                     } else {
                         isAlertPresented.toggle()
                     }
@@ -70,9 +67,7 @@ struct AnnualSelectorView: View {
         .alert(Constans.Texts.countyWarningTitle.rawValue, isPresented: $isAlertPresented) {
             Button(Constans.Texts.cancel.rawValue, role: .cancel) { }
             Button(Constans.Texts.ok.rawValue) {
-                path.append(NavigationDestination.summary(counties: viewModel.selectedCounties,
-                                                          price: viewModel.price,
-                                                          sumPrice: viewModel.sumPrice))
+                path.append(NavigationDestination.summary(order: viewModel.order))
             }
         } message: {
             Text(Constans.Texts.countyWarningMessage.rawValue)
@@ -87,5 +82,5 @@ struct AnnualSelectorView: View {
 }
 
 #Preview {
-    AnnualSelectorView(path: .constant(NavigationPath()), counties: [], price: 100)
+    AnnualSelectorView(path: .constant(NavigationPath()), order: VignetteOrder())
 }

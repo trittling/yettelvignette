@@ -8,7 +8,7 @@
 import Foundation
 
 enum NavigationDestination: Hashable {
-    case annualSelector(counties: [County], price: Int)
-    case summary(counties: [County], price: Int, sumPrice: Int)
+    case annualSelector(order: VignetteOrder)
+    case summary(order: VignetteOrder)
     case success
 }

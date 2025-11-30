@@ -12,11 +12,9 @@ struct SummaryView: View {
     
     @StateObject private var viewModel: SummaryViewModel
     
-    init(path: Binding<NavigationPath>, counties: [County], price: Int, sumPrice: Int) {
+    init(path: Binding<NavigationPath>, order: VignetteOrder) {
         _path = path
-        _viewModel = StateObject(wrappedValue: SummaryViewModel(counties: counties,
-                                                                price: price,
-                                                                sumPrice: sumPrice))
+        _viewModel = StateObject(wrappedValue: SummaryViewModel(order: order))
     }
 
     var body: some View {
@@ -47,7 +45,7 @@ struct SummaryView: View {
                     
                     Spacer()
                     
-                    Text("ABC 123")
+                    Text(viewModel.order.plateNumber)
                         .padding(.top, 16)
                         .padding(.trailing, 16)
                     
@@ -64,7 +62,7 @@ struct SummaryView: View {
                     
                     Spacer()
                     
-                    Text("Éves")
+                    Text(viewModel.getVignetteTypeName())
                         .padding(.top, 16)
                         .padding(.trailing, 16)
                         .font(.system(size: 14, weight: .light))
@@ -77,8 +75,13 @@ struct SummaryView: View {
                 
                 ScrollView {
                     VStack {
-                        ForEach(viewModel.counties, id: \.self) { county in
-                            SummaryItemView(title: county.name, price: viewModel.price.formatToHuf())
+                        if !viewModel.order.selectedCounties.isEmpty {
+                            ForEach(viewModel.order.selectedCounties, id: \.self) { county in
+                                SummaryItemView(title: county.name, price: viewModel.price.formatToHuf())
+                            }
+                        } else {
+                            SummaryItemView(title: viewModel.getVignetteTypeTitle(),
+                                            price: viewModel.getVignetteTypePrice().formatToHuf())
                         }
                         
                         HStack() {
@@ -129,5 +132,5 @@ struct SummaryView: View {
 }
 
 #Preview {
-    SummaryView(path: .constant(NavigationPath()), counties: [], price: 1000, sumPrice: 1000)
+    SummaryView(path: .constant(NavigationPath()), order: VignetteOrder())
 }

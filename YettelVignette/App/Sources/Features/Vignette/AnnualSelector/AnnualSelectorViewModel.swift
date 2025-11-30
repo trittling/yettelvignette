@@ -15,6 +15,7 @@ final class AnnualSelectorViewModel: ObservableObject {
     
     var price: Int
     var selectedCounties = [County]()
+    var order: VignetteOrder
     
     let countiesWithNeighbors: [String: [String]] = [
         "Bács-Kiskun": ["Baranya", "Tolna", "Pest", "Jász-Nagykun-Szolnok", "Békés"],
@@ -38,9 +39,10 @@ final class AnnualSelectorViewModel: ObservableObject {
         "Zala": ["Vas", "Veszprém", "Somogy"]
     ]
     
-    init(counties: [County], price: Int) {
-        self.counties = counties
-        self.price = price
+    init(order: VignetteOrder) {
+        self.counties = order.counties
+        self.price = order.price
+        self.order = order
     }
     
     func selectVignette(county: County) {
@@ -51,6 +53,8 @@ final class AnnualSelectorViewModel: ObservableObject {
         }
         
         sumPrice = selectedCounties.count * price
+        order.sumPrice = sumPrice
+        order.selectedCounties = selectedCounties
     }
     
     func checkSelectedCounties() -> Bool {
