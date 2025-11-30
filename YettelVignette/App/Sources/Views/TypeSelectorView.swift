@@ -34,23 +34,14 @@ struct TypeSelectorView: View {
             
             VStack(alignment: .leading, spacing: 16) {
                 ForEach(higwayVignettes, id: \.self) { item in
-                    if let type = item.vignetteType.first {
-                        if type == "DAY" {
-                            TypeView(title: "D1 - napi (1 napos)", price: item.sum.formatToHuf(), isSelected: selectedVignette == item) {
-                                selectedVignette = item
-                            }
-                        } else if type == "WEEK" {
-                            TypeView(title: "D1 - heti (10 napos)", price: item.sum.formatToHuf(), isSelected: selectedVignette == item) {
-                                selectedVignette = item
-                            }
-                        } else if type == "MONTH" {
-                            TypeView(title: "D1 - havi", price: item.sum.formatToHuf(), isSelected: selectedVignette == item) {
-                                selectedVignette = item
-                            }
-                        } else if type == "YEAR" {
-                            TypeView(title: "D1 - éves", price: item.sum.formatToHuf(), isSelected: selectedVignette == item) {
-                                selectedVignette = item
-                            }
+                    if let typeString = item.vignetteType.first,
+                       let type = Constans.VignetteType(rawValue: typeString) {
+                        TypeView(
+                            title: type.displayName,
+                            price: item.sum.formatToHuf(),
+                            isSelected: selectedVignette == item
+                        ) {
+                            selectedVignette = item
                         }
                     }
                 }

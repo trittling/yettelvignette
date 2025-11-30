@@ -12,7 +12,7 @@ struct MapView: View {
     
     var body: some View {
         ZStack {
-            Image("Map")
+            Image(Constans.Images.map.rawValue)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             
