@@ -32,12 +32,12 @@ final class SummaryViewModel: ObservableObject {
            let type = Constans.VignetteType(rawValue: vignetteOrder.vignetteType.first ?? "") {
             return type.detailName
         }
-        return ""
+        return Constans.VignetteType.year.detailName
     }
     
     func getVignetteTypePrice() -> Int {
         if let vignetteOrder = order.selectedVignette,
-           let type = Constans.VignetteType(rawValue: vignetteOrder.vignetteType.first ?? "") {
+           let _ = Constans.VignetteType(rawValue: vignetteOrder.vignetteType.first ?? "") {
             return vignetteOrder.sum
         }
         return 0

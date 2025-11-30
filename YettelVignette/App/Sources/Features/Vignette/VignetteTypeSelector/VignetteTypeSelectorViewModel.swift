@@ -27,7 +27,7 @@ final class VignetteTypeSelectorViewModel: ObservableObject {
             name = successResult.name
             plateNumber = successResult.plate
             vignetteOrder.name = successResult.name
-            vignetteOrder.plateNumber = successResult.name
+            vignetteOrder.plateNumber = successResult.plate.uppercased()
         }
         
         
