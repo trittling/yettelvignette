@@ -11,6 +11,7 @@ import Combine
 @MainActor
 final class SummaryViewModel: ObservableObject {
     @Published var counties = [County]()
+    @Injected private var vignetteInteractor: VignetteInteractorType
     
     var price: Int
     var selectedCounties = [County]()
@@ -69,5 +70,43 @@ final class SummaryViewModel: ObservableObject {
             }
         }
         return ""
+    }
+    
+    func createVignetteOrderRequest(completion: (() -> Void)? = nil) async {
+        if let selectedVidget = order.selectedVignette {
+            let highwayOrder = HighwayOrder(type: selectedVidget.vignetteType.first!,
+                                            category: selectedVidget.vehicleCategory,
+                                            cost: selectedVidget.sum)
+            var highwayOrders: [HighwayOrder] = []
+            highwayOrders.append(highwayOrder)
+            let request = HighwayOrderRequest(highwayOrders: highwayOrders)
+            let result = await vignetteInteractor.postOrder(orderRequest: request)
+            if result.successResult != nil {
+                completion?()
+            }
+        } else {
+            if !order.selectedCounties.isEmpty {
+                var highwayOrders: [HighwayOrder] = []
+                let highwayVignettes = order.highwayVignettes
+                for highwayVignette in highwayVignettes {
+                    if highwayVignette.vignetteType.count > 1 {
+                        for county in order.selectedCounties {
+                            if highwayVignette.vignetteType.contains(county.id) {
+                                let highwayOrder = HighwayOrder(type: county.id,
+                                                                category: highwayVignette.vehicleCategory,
+                                                                cost: highwayVignette.sum)
+                                highwayOrders.append(highwayOrder)
+                                let request = HighwayOrderRequest(highwayOrders: highwayOrders)
+                                let result = await vignetteInteractor.postOrder(orderRequest: request)
+                                if result.successResult != nil {
+                                    completion?()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 }

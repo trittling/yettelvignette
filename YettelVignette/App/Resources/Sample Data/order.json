@@ -1,0 +1,10 @@
+{
+  "statusCode": "OK",
+  "receivedOrders": [
+    {
+      "type": "DAY",
+      "category": "CAR",
+      "cost": 5000
+    }
+  ]
+}

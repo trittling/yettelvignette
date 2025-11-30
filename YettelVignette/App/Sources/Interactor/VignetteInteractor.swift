@@ -13,6 +13,9 @@ protocol VignetteInteractorType {
     
     func getHighwayInfo()
     async -> Result<HighwayInfo, HighwayInfoError>
+    
+    func postOrder(orderRequest: HighwayOrderRequest)
+    async -> Result<OrderResponse, HighwayOrderError>
 }
 
 final actor VignetteInteractor: VignetteInteractorType {
@@ -20,7 +23,7 @@ final actor VignetteInteractor: VignetteInteractorType {
     
     func getVehicleInfo() async -> Result<VehicleInfo, VehicleInfoError> {
         do {
-            let response = try await self.client.getVehicleInfo()
+            let response = try await self.client.getVehicleInfo(Operations.getVehicleInfo.Input())
             
             if case let .ok(okResponse) = response {
                 return await .success(self.mapVehicleInfo(from: try okResponse.body.json))
@@ -34,10 +37,28 @@ final actor VignetteInteractor: VignetteInteractorType {
     
     func getHighwayInfo() async -> Result<HighwayInfo, HighwayInfoError> {
         do {
-            let response = try await self.client.getHighwayInfo()
+            let response = try await self.client.getHighwayInfo(Operations.getHighwayInfo.Input())
             
             if case let .ok(okResponse) = response {
                 return await .success(self.mapHighwayInfo(from: try okResponse.body.json))
+            } else {
+                return .failure(.general)
+            }
+        } catch {
+            return .failure(.general)
+        }
+    }
+    
+    @MainActor
+    func postOrder(orderRequest: HighwayOrderRequest) async -> Result<OrderResponse, HighwayOrderError> {
+        do {
+            let payload = Operations.postHighwayOrder.Input.Body.jsonPayload(highwayOrders: orderRequest.highwayOrders.map { .init(_type: $0.type, category: $0.category, cost: Float($0.cost)) })
+            let input = Operations.postHighwayOrder.Input(body: .json(payload))
+            
+            let response = try await self.client.postHighwayOrder(input)
+            
+            if case let .ok(okResponse) = response {
+                return await .success(self.mapPostHigwayOrder(from: try okResponse.body.json))
             } else {
                 return .failure(.general)
             }
@@ -82,5 +103,17 @@ private extension VignetteInteractor {
                            requestId: apiModel.requestId ?? "",
                            statusCode: apiModel.statusCode ?? "",
                            dataType: apiModel.payload.debugDescription)
+    }
+    
+    func mapPostHigwayOrder(from apiModel: Operations.postHighwayOrder.Output.Ok.Body.jsonPayload) -> OrderResponse {
+        var receivedOrders: [ReceivedOrder] = []
+        for order in apiModel.receivedOrders ?? [] {
+            receivedOrders.append(ReceivedOrder(type: order._type ?? "",
+                                                category: order.category ?? "",
+                                                cost: Int(order.cost ?? 0.0)))
+        }
+        
+        return OrderResponse(statusCode: apiModel.statusCode ?? "",
+                             receivedOrders: receivedOrders)
     }
 }

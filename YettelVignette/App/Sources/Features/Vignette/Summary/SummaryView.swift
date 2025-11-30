@@ -106,7 +106,11 @@ struct SummaryView: View {
                 AmountView(price: viewModel.sumPrice + viewModel.convenienceFee)
                 
                 Button(Constans.Texts.next.rawValue, action: {
-                    path.append(NavigationDestination.success)
+                    Task {
+                        await viewModel.createVignetteOrderRequest {
+                            path.append(NavigationDestination.success)
+                        }
+                    }
                 })
                 .buttonStyle(PrimaryButtonStyle())
                 .padding(.horizontal, 16)

@@ -10,6 +10,20 @@ import Foundation
 struct MockClient: APIProtocol {
     func postHighwayOrder(_ input: Operations.postHighwayOrder.Input)
     async throws -> Operations.postHighwayOrder.Output {
+        let response = stubbedResponse(
+            "order"
+        )
+        if let json: Operations.postHighwayOrder.Output.Ok.Body.jsonPayload = decodeDataToObject(
+            data: response
+        ) {
+            return .ok(
+                .init(
+                    body: .json(
+                        json
+                    )
+                )
+            )
+        }
         return .notFound(.init())
     }
     
